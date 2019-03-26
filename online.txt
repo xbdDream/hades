@@ -2,4 +2,7 @@
 ceshi
 =======
 冲突测试。。。
+<<<<<<< Updated upstream
 
+=======
+BENDICESHI
