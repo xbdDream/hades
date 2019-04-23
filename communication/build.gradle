@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.0.BUILD-SNAPSHOT'
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'java'
 }
 
@@ -11,11 +11,15 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
-	maven { url 'https://repo.spring.io/snapshot' }
-	maven { url 'https://repo.spring.io/milestone' }
+//	maven { url 'https://repo.spring.io/snapshot' }
+//	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.apache.httpcomponents:httpclient:4.5.8'
+	compile 'org.apache.mina:mina-core:2.1.2'
 }
