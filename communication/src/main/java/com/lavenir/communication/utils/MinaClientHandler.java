@@ -5,6 +5,7 @@ import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MinaClientHandler extends IoHandlerAdapter {
@@ -23,7 +24,7 @@ public class MinaClientHandler extends IoHandlerAdapter {
 
     public void messageReceived(IoSession session , Object message)throws Exception
     {
-        System.out.println("客户端接受到了消息"+message) ;
+        System.out.println("客户端接受到了消息:"+message) ;
     }
 
     public void exceptionCaught(IoSession session, Throwable cause)
@@ -33,10 +34,10 @@ public class MinaClientHandler extends IoHandlerAdapter {
         session.closeNow();
     }
 
+    //客户端心跳
     public void sessionIdle(IoSession session, IdleStatus status)
             throws Exception {
-        //心跳
-        System.out.println("客户端ide:" + DateFormat.getDateInstance().format(new Date()));
+        System.out.println("客户端idle:" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
     }
 
     //    获取session连接，用来随时向客户端发送消息

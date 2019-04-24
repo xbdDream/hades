@@ -3,6 +3,10 @@ package com.lavenir.communication.utils;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.apache.mina.transport.socket.SocketSessionConfig;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MinaServerHandler extends IoHandlerAdapter {
 
@@ -10,6 +14,11 @@ public class MinaServerHandler extends IoHandlerAdapter {
 
     // session 创建调用
     public void sessionCreated(IoSession session) {
+        SocketSessionConfig cfg = (SocketSessionConfig) session.getConfig();
+        cfg.setReceiveBufferSize(2 * 1024 * 1024);
+        cfg.setReadBufferSize(2 * 1024 * 1024);
+        cfg.setKeepAlive(true);
+        cfg.setSoLinger(0); //MINA在调用了close()方法后，不会再进入TIME_WAIT状态了，而直接Close掉
         System.out.println("新客户连接");
     }
 
@@ -45,7 +54,8 @@ public class MinaServerHandler extends IoHandlerAdapter {
 
     // session 空闲的时候调用 - 心跳
     public void sessionIdle(IoSession session, IdleStatus status) {
-        System.out.println("connect idle");
+        System.out.println("服务器idle:" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+        session.closeNow();
     }
 
     // 异常捕捉
