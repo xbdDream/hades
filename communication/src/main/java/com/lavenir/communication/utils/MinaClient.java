@@ -30,8 +30,8 @@ public class MinaClient {
         MinaClientKeepAliveMessageFactory keepAlive = new MinaClientKeepAliveMessageFactory();
         KeepAliveFilter kaf = new KeepAliveFilter(keepAlive, IdleStatus.READER_IDLE, KeepAliveRequestTimeoutHandler.CLOSE);
         kaf.setForwardEvent(true); //继续调用 IoHandlerAdapter 中的 sessionIdle事件
-        kaf.setRequestInterval(10); //设置当连接的读取通道空闲的时候，心跳包请求时间间隔
-        kaf.setRequestTimeout(5); //设置心跳包请求后 等待反馈超时时间。 超过该时间后则调用KeepAliveRequestTimeoutHandler.CLOSE
+        kaf.setRequestInterval(15); //设置当连接的读取通道空闲的时候，心跳包请求时间间隔
+        kaf.setRequestTimeout(10); //设置心跳包请求后 等待反馈超时时间。 超过该时间后则调用KeepAliveRequestTimeoutHandler.CLOSE
         chain.addLast("heart", kaf);
 
 
@@ -56,5 +56,33 @@ public class MinaClient {
         String hostname = "127.0.0.1";
         int port = 10026;
         start(hostname, port);
+//        for(int i=0; i<1; i++){
+//            StartThread st = new StartThread();
+//            Thread th = new Thread(st);
+//            th.start();
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                start(hostname, port);
+            }
+        });
+        t.start();
+    }
+
+}
+
+class StartThread implements Runnable{
+    String hostname = "127.0.0.1";
+    int port = 10026;
+    @Override
+    public void run() {
+        MinaClient.start(hostname, port);
     }
 }

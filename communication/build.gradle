@@ -22,4 +22,5 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.apache.httpcomponents:httpclient:4.5.8'
 	compile 'org.apache.mina:mina-core:2.1.2'
+	compile 'org.projectlombok:lombok:1.18.6'
 }

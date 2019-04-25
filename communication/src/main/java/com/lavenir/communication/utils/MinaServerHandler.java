@@ -32,8 +32,6 @@ public class MinaServerHandler extends IoHandlerAdapter {
         count++;
         System.out.println("第 " + count + " 个 client 登陆！address： : "
                 + session.getRemoteAddress());
-
-
     }
 
     //    获取session连接，用来随时向客户端发送消息
@@ -45,8 +43,7 @@ public class MinaServerHandler extends IoHandlerAdapter {
     // 当收到了客户端发送的消息后会回调这个函数
     public void messageReceived(IoSession session, Object message)
             throws Exception {
-        System.out.println("服务器收到客户端发送指令 ：" );
-        System.out.println(message);
+        System.out.println("服务器收到客户端发送指令 ：" + message);
 
         //模拟向客户端发送信息
         sessionWrite(session);
@@ -55,7 +52,6 @@ public class MinaServerHandler extends IoHandlerAdapter {
     // session 空闲的时候调用 - 心跳
     public void sessionIdle(IoSession session, IdleStatus status) {
         System.out.println("服务器idle:" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
-        session.closeNow();
     }
 
     // 异常捕捉

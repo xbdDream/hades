@@ -33,8 +33,8 @@ public class MinaServer {
         MinaServerKeepAliveMessageFactory keepAlive = new MinaServerKeepAliveMessageFactory();
         KeepAliveFilter kaf = new KeepAliveFilter(keepAlive, IdleStatus.BOTH_IDLE);
         kaf.setForwardEvent(true); //idle事件回发  当session进入idle状态的时候 依然调用handler中的idled方法（使用了 KeepAliveFilter之后，IoHandlerAdapter中的 sessionIdle方法默认是不会再被调用的）
-        kaf.setRequestInterval(15);  //本服务器为被定型心跳  即需要每10秒接受一个心跳请求  否则该连接进入空闲状态 并且发出idled方法回调
-        kaf.setRequestTimeout(5); //超时时间   如果当前发出一个心跳请求后需要反馈  若反馈超过此事件 默认则关闭连接
+        kaf.setRequestInterval(30);  //本服务器为被定型心跳  即需要每10秒接受一个心跳请求  否则该连接进入空闲状态 并且发出idled方法回调
+        kaf.setRequestTimeout(10); //超时时间   如果当前发出一个心跳请求后需要反馈  若反馈超过此事件 默认则关闭连接
         chain.addLast("heart", kaf);
 
         //设置读缓冲
